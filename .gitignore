@@ -1,0 +1,12 @@
+# Ignore the Python virtual environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore the actual database file (keep schema.sql, but ignore the live data file)
+database/comparison.db
+
+# Ignore local system files
+.DS_Store
+Thumbs.db
