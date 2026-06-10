@@ -75,3 +75,18 @@ city-relocation-pipeline/
 │
 ├── README.md                        # The most important document
 └── requirements.txt                 # List of Python packages used (Pandas, Requests)
+
+
+```
+├── Dashboards
+├── Data
+│   └── cities_list.json
+├── Database
+│   └── schema.sql
+├── Scripts
+│   ├── fetch_data.py
+│   ├── populate_db.py
+│   └── setup_db.py
+├── .gitignore
+└── README.md
+```
