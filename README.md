@@ -56,10 +56,11 @@ Tracks interested cities.
     ```
 
 ## File Tree:
+```
 city-relocation-pipeline/
 │
 ├── data/
-│   └── cities_list.json          # JSON list of considered countries
+│   └── cities_list.json             # JSON list of considered countries
 │
 ├── database/
 │   ├── schema.sql                   # SQL table definitions
@@ -73,20 +74,6 @@ city-relocation-pipeline/
 ├── dashboards/
 │   └── cost_of_living_analysis.pbix # Final Power BI file
 │
-├── README.md                        # The most important document
-└── requirements.txt                 # List of Python packages used (Pandas, Requests)
-
-
-```
-├── Dashboards
-├── Data
-│   └── cities_list.json
-├── Database
-│   └── schema.sql
-├── Scripts
-│   ├── fetch_data.py
-│   ├── populate_db.py
-│   └── setup_db.py
-├── .gitignore
-└── README.md
+├── README.md                        # This document
+└── requirements.txt                 # List of Python packages used
 ```
