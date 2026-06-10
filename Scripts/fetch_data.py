@@ -23,6 +23,8 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     current_cities = []
     
+    
+    
 #loop to choose cities and dump into json list    
 def cities_considered():
     checker = True
@@ -64,17 +66,16 @@ def cities_considered():
     return current_cities
     
     
+
+    
+    
 #loop to scrape and parse data for cities listed in json    
 def scrape_data(target_cities):
     headers = {'User-Agent': 'COL_Test_Project/1.0'}    
-      
     base_url = "https://www.numbeo.com/cost-of-living/in/"    
-    
     all_scraped_data = []
     
-    #for city_names in current_cities:
     for city_names in target_cities:
-        
         city_record = {
             "city_label": city_names,
             "sub_items": []
@@ -91,10 +92,26 @@ def scrape_data(target_cities):
             #bs4 integration here
             soup = BeautifulSoup(raw_html_data, "html.parser")
             data_table = soup.find("table", class_="data_wide_table new_bar_table")
+            
             if data_table:
                 rows = data_table.find_all("tr")
+                current_category = "General"
+                header_checker = False
                 
                 for row in rows:
+                    row_classes = row.get("class", [])
+                    
+                    if "break_category" in row_classes:
+                        header_checker = True
+                        continue
+                    
+                    if header_checker:
+                        category_div = row.find("div", class_="category_title")
+                        if category_div:
+                            current_category = category_div.text.strip()
+                        header_checker = False
+                        continue
+                    
                     cells = row.find_all("td")
                     
                     if len(cells) >= 2:
@@ -104,10 +121,14 @@ def scrape_data(target_cities):
                         item_value = Decimal(clean_string)
                         #sqlite doesnt like decimal oops
                         item_value_float = float(item_value)
-                        print(f"Found {item_name}, {item_value_float}")
+                        print(f"[{current_category}] Found {item_name}, {item_value_float}")
                         
                         #output to list of dictionaries, each city is its own dictionary with metrics listed inside
-                        metric = {"name": item_name, "value": item_value_float}
+                        metric = {
+                            "category": current_category,
+                            "name": item_name,
+                            "value": item_value_float
+                        }
                         city_record["sub_items"].append(metric)
                 all_scraped_data.append(city_record)
                         

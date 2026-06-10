@@ -15,7 +15,6 @@ def populate_db():
     initialise_database(database_location, schema_location)
     
     chosen_cities = cities_considered()
-    
     data_to_insert = scrape_data(chosen_cities)
     
     with sqlite3.connect(main_folder/'Database/comparison.db') as conn:
@@ -23,23 +22,28 @@ def populate_db():
         cursor.execute("PRAGMA foreign_keys = ON;")
             
         for city_record in data_to_insert:
+            city_name = city_record["city_label"]
+            
             #sql insertion of cities (parent)
             cursor.execute(
                 "INSERT OR IGNORE INTO cities (city_name) VALUES (?);",
-                (city_record["city_label"],)
+                (city_name,)
             )
             
-            parent_id = cursor.lastrowid
+            #check to stop duplicate data constantly being recorded and bloat            
+            cursor.execute(
+                "SELECT city_id FROM cities WHERE city_name = ?;",
+                (city_name,)
+            )
             
-            if not parent_id or parent_id == 0:
-                cursor.execute(
-                    "SELECT city_id FROM cities WHERE city_name = ?;"
-                )
-                parent_id = cursor.fetchone()[0]
+            parent_id = cursor.fetchone()[0]
             
-            
-
-            
+            cursor.execute(
+                "DELETE FROM cost_metrics WHERE city_id = ?;",
+                (parent_id,)
+            )
+                      
+                      
             #sql insertion of item data (child)
             for metric_item in city_record["sub_items"]:
                 cursor.execute(
@@ -47,7 +51,7 @@ def populate_db():
                     INSERT INTO cost_metrics (category, item_name, cost_aud, city_id)
                     VALUES (?, ?, ?, ?);
                     """,
-                    ("Housing", metric_item["name"], metric_item["value"], parent_id)
+                    (metric_item["category"], metric_item["name"], metric_item["value"], parent_id)
                 )
             
         print("Completed")    
