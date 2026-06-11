@@ -1,15 +1,15 @@
 # Relocation City Comparison to Adelaide
 
-A tool for use in helping determine relocation tradeoffs between cities with AUD serving as the currency base. 
+A tool for use in helping determine relocation tradeoffs between cities with user selected currency serving as the currency base. 
 
 ## Use Case
-This program acts as a data-driven comparison tool between considered cities and the users home city, Adelaide to evaluate mobility opportunities via normalising Purchasing Power Parity (PPP) and qualitative lifestyle metrics across disparate geographical locations.
+This program acts as a data-driven comparison tool between considered cities to evaluate mobility opportunities via normalising Purchasing Power Parity (PPP) and qualitative lifestyle metrics across disparate geographical locations.
 
 ## Key Features
-*   **Dynamic Income Adjustment:** Automatically normalises wages into AUD. 
+*   **Dynamic Income Adjustment:** Automatically normalises wages into a chosen currency. 
 *   **COL adjustment:** Draws Cost of Living data from webscraped source.
-*   **QOL adjustment:** Calculates Quality of Life data for comparison, this consists of safety data, ease of transit and climate impact.
-*   **Relational Logic:** Uses a SQLite backend to handle calculations between cities, cost metrics, exchange rates and psychological utility. 
+*   **QOL adjustment:** Calculates Quality of Life data for comparison, this is calculated through consideration of crime rates, traffic, health care and pollution data.
+*   **Relational Logic:** Uses a SQLite backend to handle calculations between cities, cost metrics and psychological utility. 
 
 ## Data Pipeline
 *   **1:** Webscraped data respecting rate limiting 
@@ -37,6 +37,7 @@ Tracks interested cities.
 * `utility_id`: Integer (PK) 
 * `city_id`: Integer (FK, cities.city_id)
 * `safety_score`: Integer
+* `health_care_score`: Integer
 * `travel_score`: Integer
 * `climate_score`: Integer
 

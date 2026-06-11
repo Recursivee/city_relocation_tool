@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS cost_metrics (
 CREATE TABLE IF NOT EXISTS psych_utility (
     utility_id INTEGER PRIMARY KEY,
     safety_score INTEGER,
+    health_care_score INTEGER,
     travel_score INTEGER,
     climate_score INTEGER,
     city_id INTEGER,
