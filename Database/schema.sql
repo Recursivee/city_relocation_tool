@@ -18,12 +18,6 @@ CREATE TABLE IF NOT EXISTS cost_metrics (
     REFERENCES cities(city_id)
 );
 
-CREATE TABLE IF NOT EXISTS exchange_rates (
-    rate_id INTEGER PRIMARY KEY,
-    from_currency TEXT,
-    to_currency TEXT,
-    exchange_rate REAL
-);
 
 CREATE TABLE IF NOT EXISTS psych_utility (
     utility_id INTEGER PRIMARY KEY,

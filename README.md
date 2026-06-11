@@ -1,6 +1,6 @@
 # Relocation City Comparison to Adelaide
 
-A tool for use in helping determine relocation from Adelaide, Australia to any other city. 
+A tool for use in helping determine relocation tradeoffs between cities with AUD serving as the currency base. 
 
 ## Use Case
 This program acts as a data-driven comparison tool between considered cities and the users home city, Adelaide to evaluate mobility opportunities via normalising Purchasing Power Parity (PPP) and qualitative lifestyle metrics across disparate geographical locations.
@@ -32,12 +32,6 @@ Tracks interested cities.
 * `category`: String
 * `item_name`: String
 * `cost_aud`: REAL
-
-### `exchange_rates` 
-* `rate_ID`: Integer (PK)
-* `from_currency`: String
-* `to_currency`: String
-* `exchange_rate`: REAL
 
 ### `psych_utility`
 * `utility_id`: Integer (PK) 
