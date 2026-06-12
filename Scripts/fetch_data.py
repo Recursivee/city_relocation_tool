@@ -75,15 +75,17 @@ def scrape_data(target_cities):
     base_url = "https://www.numbeo.com/cost-of-living/in/"    
     all_scraped_data = []
     base_currency = input("Enter the 3 digit currency code for chosen base currency: ") or "AUD"
-    normalised_base_currency = base_currency.upper
+    normalised_base_currency = base_currency.upper()
     
     for city_names in target_cities:
         city_record = {
             "city_label": city_names,
-            "sub_items": []
+            "sub_items": [],
+            "qol_items": []
         }
 
         new_url = f"https://www.numbeo.com/cost-of-living/in/{city_names}?displayCurrency={normalised_base_currency}"
+        qol_url = f"https://www.numbeo.com/quality-of-life/in/{city_names}"
         
         
         try:
