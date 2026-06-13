@@ -13,20 +13,18 @@ CREATE TABLE IF NOT EXISTS cost_metrics (
     item_name TEXT,
     cost_aud REAL,
     city_id INTEGER,
-    CONSTRAINT fk_city
+    CONSTRAINT fk_cost_city
     FOREIGN KEY (city_id)
     REFERENCES cities(city_id)
 );
 
 
 CREATE TABLE IF NOT EXISTS psych_utility (
-    utility_id INTEGER PRIMARY KEY,
-    safety_score INTEGER,
-    health_care_score INTEGER,
-    travel_score INTEGER,
-    climate_score INTEGER,
+    utility_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    qol_item_name TEXT,
+    qol_item_score REAL, 
     city_id INTEGER,
-    CONSTRAINT fk_city
+    CONSTRAINT fk_qol_city
     FOREIGN KEY (city_id)
     REFERENCES cities(city_id)
 );

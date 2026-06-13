@@ -133,15 +133,50 @@ def scrape_data(target_cities):
                             "name": item_name,
                             "value": item_value_float
                         }
-                        city_record["sub_items"].append(metric)
-                all_scraped_data.append(city_record)
-                        
+                        city_record["sub_items"].append(metric)                        
         
         except requests.exceptions.RequestException as error:
             print(f"Skipping {city_names} due to error: {error}")
-            continue
-        
+                
         time.sleep(10)
+        
+        try:
+            qol_response = requests.get(qol_url, headers=headers, timeout=10)
+            qol_response.raise_for_status()
+            raw_qol_data = qol_response.text
+            
+            #bs4 integration here
+            qol_soup = BeautifulSoup(raw_qol_data, "html.parser")
+            qol_data_table = qol_soup.find("table", class_="qol-breakdown")
+            
+            if qol_data_table:
+                qol_rows = qol_data_table.find_all("tr")
+
+                for row in qol_rows:
+                    qol_row_classes = row.get("class", [])
+                    qol_cells = row.find_all("td")
+                    
+                    if len(qol_cells) >= 2:
+                        qol_item_name = qol_cells[0].text.strip()
+                        qol_item_value_string = qol_cells[1].text.strip()
+                        qol_clean_string = re.sub(r"[^\d.]", "", qol_item_value_string)
+                        
+                        if qol_clean_string:
+                            qol_item_value_float = float(qol_clean_string)
+                            print(f"Found {qol_item_name}, {qol_item_value_float}")
+
+                            qol_metric = {
+                                "qol_name": qol_item_name,
+                                "qol_score": qol_item_value_float
+                            }
+                            city_record["qol_items"].append(qol_metric)
+
+        except requests.exceptions.RequestException as error:
+            print(f"Skipping {city_names} QOL due to error: {error}")
+                
+        time.sleep(10)
+        
+        all_scraped_data.append(city_record)                    
         
     return all_scraped_data
     

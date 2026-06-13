@@ -54,6 +54,16 @@ def populate_db():
                     (metric_item["category"], metric_item["name"], metric_item["value"], parent_id)
                 )
             
+            #sql insertion of qol item data (child)
+            for qol_item in city_record["qol_items"]:
+                cursor.execute(
+                    """
+                    INSERT INTO psych_utility (qol_item_name, qol_item_score, city_id)
+                    VALUES(?, ?, ?);
+                    """,
+                    (qol_item["qol_name"], qol_item["qol_score"], parent_id)
+                )
+            
         print("Completed")    
 
 
