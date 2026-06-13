@@ -31,15 +31,13 @@ Tracks interested cities.
 * `city_id`: Integer (FK, cities.city_id)
 * `category`: String
 * `item_name`: String
-* `cost_aud`: REAL
+* `cost_aud`: Real
 
 ### `psych_utility`
 * `utility_id`: Integer (PK) 
 * `city_id`: Integer (FK, cities.city_id)
-* `safety_score`: Integer
-* `health_care_score`: Integer
-* `travel_score`: Integer
-* `climate_score`: Integer
+* `qol_item_name`: String
+* `qol_item_score`: Real
 
 
 ##  Getting Started
