@@ -53,9 +53,7 @@ Tracks interested cities.
     ```
 
 2. **Run Pipeline**:
-   ```bash
    run python scripts/populate_db.py to generate SQLite database locally, then open dashboard/dashboard.pbix in PowerBi Desktop and click refresh. 
-    ```
 
 ## File Tree:
 ```
