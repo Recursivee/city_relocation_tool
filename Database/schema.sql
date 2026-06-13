@@ -3,8 +3,6 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS cities (
     city_id INTEGER PRIMARY KEY,
     city_name TEXT NOT NULL UNIQUE,
-    country TEXT,
-    base_currency TEXT
 );
 
 CREATE TABLE IF NOT EXISTS cost_metrics (
